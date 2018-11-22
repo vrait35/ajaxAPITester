@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  <script type="text/javascript">
+  $(document).ready(function(){
+  	function  click() {
+  		console.log('click');
+  			$.ajax({
+					url:'185.53.168.41/testq',
+					method:'POST',
+					data:{nameClient:i1.val().toString(), usserId:i2.val().toString() },
+					success:function(data){
+						console.log(data);
+					},
+					error:function(data){
+						console.log(data);
+					}
+				});
+  	}
+			
+			});
+  </script>
+</head>
+<body>
+	<input type="text" name="first_name" id="first_name">
+	<input type="text" name="first_name" id="last_name">
+	<input type="text" name="first_name" id="age">
+	<input type="text" name="first_name" id="info">
+	<input type="text" name="first_name" id="user_id">	
+	<input type="button" name="" id="btn" onclick="click();">
+	
+    <input type="text" name="first_name" id="ruser_id">	
+	<input type="button" name="" id="btnGet" onclick="click();">
+
+
+	<select id="sel"></select>	
+
+<br><br>
+
+<script type="text/javascript">
+		btn.onclick=function(){
+			console.log('click posle');
+			$.ajax({
+					url:'http://185.53.168.41/testcreateclient',
+					method:'POST',
+					//data:{nameClient:$("#i1").val().toString(), usserId:$("#i2").val().toString() },
+					//data: jQuery.param({nameClient:$("#i1").val().toString(), usserId:$("#i2").val().toString()}) ,
+					data:jQuery.param({first_name:$("#first_name").val().toString(),last_name:$("#last_name").val().toString(),age:$("#age").val().toString(),info:$("#info").val().toString(),user_id:$("#user_id").val().toString()}),
+					success:function(data){
+						console.log(data);
+					},
+					error:function(data){
+						console.log(data);
+					}
+				});			
+		}
+
+
+		btnGet.onclick=function(){
+			console.log('click posle');
+			$.ajax({
+					url:'http://185.53.168.41/public/testgetclients/'+$("#ruser_id").val().toString(),
+					method:'GET',										
+					success:function(data){
+						console.log(data);
+						for(i=0;i<data.clients.length;i++){
+						//$("#sel").append('<option value=1>My option</option>');
+						$("#sel").append('<option value='+data.clients[i]["id"]+'>'+data.clients[i]["first_name"]+'</option>');
+					}
+					},
+					error:function(data){
+						console.log(data);
+					}
+				});	
+
+		}
+	</script>
+</body>
+</html>
